@@ -138,6 +138,7 @@ namespace Snake2
                 gm.ChangeGameState(GameState.GameOver);
 
             Direction d = base.CollisionSides(offsetX: (int)adventure.currentLevel.X + 1, offsetY: (int)adventure.currentLevel.Y + 1);
+            Console.WriteLine(adventure.currentLevel);
 
             if (d != Direction.None)
             {

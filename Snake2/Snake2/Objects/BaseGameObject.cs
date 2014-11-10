@@ -25,6 +25,8 @@ namespace Snake2
             get { return sprite; }
             set
             {
+                if (this is Snake)
+                    Console.WriteLine();
                 sprite = value;
                 texture = sprite.texture;
                 colorData = sprite.colorData;
@@ -145,8 +147,6 @@ namespace Snake2
 
         public virtual void Update(GameTime gameTime)
         {
-            if (this is Snake && shadowRectangle.Width == 32)
-                Console.WriteLine();
 
             if (Sprite != null && Sprite is AnimatedSprite)
             {
@@ -171,6 +171,9 @@ namespace Snake2
         RasterizerState shadowRasterizer = RasterizerState.CullClockwise;
         public Matrix CreateShadow(Vector2 p)
         {
+            if (this is Snake)
+                Console.WriteLine();
+
             float ax = rectangle.X + origin.X;
             float ay = rectangle.Y + origin.Y;
             float bx = p.X;
@@ -222,7 +225,7 @@ namespace Snake2
                 s *
                 Matrix.CreateScale(flip, 1, 0) *
                 Matrix.CreateRotationZ(-((float)Math.PI / 2)) *
-                Matrix.CreateTranslation(new Vector3(shadowRectangle.X + shadowOrigin.X * 2, shadowRectangle.Y + shadowOrigin.Y, 0f));
+                Matrix.CreateTranslation(new Vector3(shadowRectangle.X + shadowOrigin.X * 2, shadowRectangle.Y + shadowOrigin.Y * 2, 0f));
 
             if (this is ObjectSword && level == Adventure.Current.currentLevel && Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
@@ -236,11 +239,9 @@ namespace Snake2
             if (castsShadow && shadowTexture != null)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, shadowRasterizer, null, CreateShadow(new Vector2(Mouse.GetState().X, Mouse.GetState().Y)) * gm.camera.transform);
-                spriteBatch.Draw(shadowTexture, shadowRectangle, sourceRectangle, new Color(0, 0, 0, 150), 0f, new Vector2(16, 16), SpriteEffects.None, 0);
+                spriteBatch.Draw(shadowTexture, shadowRectangle, sourceRectangle, new Color(0, 0, 0, 150), 0f, shadowOrigin, SpriteEffects.None, 0);
                 spriteBatch.End();
             }
-            if (this is ObjectApple)
-                Console.WriteLine();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, gm.camera.transform);
             spriteBatch.Draw(texture, position + origin, sourceRectangle, color, rotation, origin, 1.0f, SpriteEffects.None, 0);
             //spriteBatch.Draw(Sprites.pixel.texture, CollisionHandler.CalculateBoundingRectangle(this), new Color(255, 0, 0, 75));

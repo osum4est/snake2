@@ -26,7 +26,6 @@ namespace Snake2
             snakes.Add(new ArcadeSnake(gm, 0));
             snakes[0].apple.Generate();
             //gm.Components.Add(snakes[0]);
-            Console.WriteLine(snakes[0].apple.rectangle.X);
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             base.Initialize();
         }

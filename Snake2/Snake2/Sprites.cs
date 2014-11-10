@@ -10,7 +10,6 @@ namespace Snake2
 {
     public static class Sprites
     {
-        public static Sprite pixel;
         public static Sprite coin;
         public static Sprite sword;
         public static Sprite[] rock;
@@ -25,13 +24,7 @@ namespace Snake2
             c = gm.Content;
             Console.WriteLine(c.RootDirectory);
 
-            pixel = new Sprite(new Texture2D(GameMain.Current.GraphicsDevice, 32, 32));
-            pixel.colorData = new Color[32 * 32];
-            for (int i = 0; i < pixel.colorData.Count(); i++)
-			{
-			    pixel.colorData[i] = Color.White;
-			}
-            pixel.texture.SetData(pixel.colorData);
+            
 
             coin = new Sprite(c.Load<Texture2D>("Sprites/Coin"));
             sword = new Sprite(c.Load<Texture2D>("Sprites/Sword"));
@@ -45,6 +38,18 @@ namespace Snake2
             slimetrail = new Sprite(c.Load<Texture2D>("Sprites/newslimetrail"));
         }
 
+        public static Sprite Pixel(int width, int height)
+        {
+            Sprite pixel = new Sprite(new Texture2D(GameMain.Current.GraphicsDevice, width, height));
+            pixel.colorData = new Color[width * height];
+            for (int i = 0; i < pixel.colorData.Count(); i++)
+            {
+                pixel.colorData[i] = Color.White;
+            }
+            pixel.texture.SetData(pixel.colorData);
+
+            return pixel;
+        }
         
     }
 

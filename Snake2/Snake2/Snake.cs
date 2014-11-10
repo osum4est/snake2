@@ -66,9 +66,7 @@ namespace Snake2
 
         public Snake(Game game, int player) : base()
         {
-            Sprite = Sprites.pixel;
-            width = 16;
-            height = 16;
+            Sprite = Sprites.Pixel(16, 16);
             castsShadow = true;
             testHead = new Rectangle();
             gm = GameMain.Current;
@@ -97,8 +95,6 @@ namespace Snake2
             GameMain.KeysAttribute a = (GameMain.KeysAttribute)typeof(ControlMethod).GetMember(controlMethod.ToString())[0].GetCustomAttributes(true)[0];
             keys = a.GetKeys();
 
-            foreach (Keys k in keys)
-                Console.WriteLine(k);
             SetHeadPos();
             snakeBody = new List<Rectangle>();
             for (int i = 0; i < length; i++)
@@ -199,7 +195,7 @@ namespace Snake2
         {
             if (sLevel == null)
                 sLevel = Vector2.Zero;
-            List<BaseGameObject> objs = gm.Components.OfType<BaseGameObject>().ToList<BaseGameObject>();
+            List<BaseGameObject> objs = Adventure.Current.objects;
 
             testHead = rectangle;
             testHead.X += (int)movement.X;

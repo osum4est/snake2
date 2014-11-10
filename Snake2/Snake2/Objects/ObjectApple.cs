@@ -18,12 +18,10 @@ namespace Snake2
 
         public override void Initialize()
         {
-            Sprite = Sprites.pixel;
+            Sprite = Sprites.Pixel(16, 16);
             testForSnakeCollision = true;
             castsShadow = true;
             color = Color.Red;
-            width = 16;
-            height = 16;
             
             base.Initialize();
         }

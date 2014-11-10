@@ -62,7 +62,6 @@ namespace Snake2
 
         private void LoadLevels()
 	    {
-            Console.WriteLine("Loaded levels");
             for (int x = 0; x < worldWidth; x++)
 			{
                 List<LevelLibrary> column = new List<LevelLibrary>();
@@ -127,7 +126,7 @@ namespace Snake2
         {
             foreach (BaseGameObject o in objects)
             {
-                if (o.level == currentLevel)
+                if (o.level == currentLevel || o is Snake)
                 {
                     o.enabled = true;
                     o.visible = true;

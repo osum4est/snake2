@@ -35,8 +35,6 @@ namespace Snake2
             gm.GraphicsDevice.Clear(Color.White);
             foreach (BaseGameObject obj in a.objects)
             {
-                if (obj is ObjectApple)
-                    Console.WriteLine();
                 if (obj.visible)
                     obj.Draw();
             }
