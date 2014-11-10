@@ -53,7 +53,7 @@ namespace Snake2
 
         public SpriteFont fontMain;
 
-        FrameRateCounter fps;
+        public FrameRateCounter fps;
 
         Arcade arcade;
         MainMenu mainMenu;
@@ -132,11 +132,7 @@ namespace Snake2
         {
             GraphicsDevice.Clear(Color.PaleTurquoise);
 
-            spriteBatch.Begin();
-
-            fps.Draw(gameTime, spriteBatch, fontMain);
-
-            spriteBatch.End();
+            
 
             base.Draw(gameTime);
         }

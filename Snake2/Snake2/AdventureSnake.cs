@@ -33,7 +33,7 @@ namespace Snake2
             this.adventure = adventure;
             
 
-            swords = 4000;
+            swords = 4;
             dummySwordTexture = Sprites.sword.texture;
             dummySwordOrigin = new Vector2(dummySwordTexture.Width / 2, dummySwordTexture.Height / 2);
             dummySwordRectangle = new Rectangle(rectangle.X, rectangle.Y, dummySwordTexture.Width, dummySwordTexture.Height);
@@ -41,7 +41,7 @@ namespace Snake2
             lowerSpeed = 4000000;
             increaseSpeed = 12;
             speed = lowerSpeed;
-            shootingRate = 25;
+            shootingRate = 250;
         }
 
         public override void SetHeadPos()
@@ -87,7 +87,7 @@ namespace Snake2
                 {
                     if (sTimer == 0)
                     {
-                        ObjectSword o = new ObjectSword(rectangle.X + headSize / 2, rectangle.Y + headSize / 2, shootingAt, adventure.currentLevel);
+                        ObjectSword o = new ObjectSword(rectangle.X, rectangle.Y, shootingAt, adventure.currentLevel);
                         adventure.objects.Add(o);
                         sTimer = shootingRate;
                         swords--;

@@ -149,6 +149,12 @@ namespace Snake2
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
+
+            spriteBatch.Begin();
+
+            gm.fps.Draw(gameTime, spriteBatch, gm.fontMain);
+
+            spriteBatch.End();
         }
     }
 }
