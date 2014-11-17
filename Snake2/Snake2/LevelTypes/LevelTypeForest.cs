@@ -11,14 +11,11 @@ namespace Snake2
     {
         public LevelTypeForest()
         {
-            ambientLight = new Color(0, 50, 0, 25);
+            ambientLight = new Color(0, 0, 0, 100);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
-            spriteBatch.DrawString(GameMain.Current.fontMain, "Forest", new Vector2(200 * Adventure.Current.currentLevel.X, 200 * Adventure.Current.currentLevel.Y), Color.Green);
-            spriteBatch.End();
         }
     }
 }

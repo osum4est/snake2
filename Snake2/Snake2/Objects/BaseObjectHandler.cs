@@ -36,7 +36,9 @@ namespace Snake2
             foreach (BaseGameObject obj in a.objects)
             {
                 if (obj.visible)
+                {
                     obj.Draw();
+                }
             }
 
             Adventure.Current.levelType.Draw(gameTime);
@@ -52,9 +54,32 @@ namespace Snake2
             back.SetData<Color>(data);
 
             gm.GraphicsDevice.SetRenderTarget(a.rtLight);
-            gm.GraphicsDevice.Clear(Color.White);
-            gm.spriteBatch.Begin();
-            gm.spriteBatch.Draw(back, new Vector2(0, 0), a.levelType.ambientLight);
+            gm.GraphicsDevice.Clear(Color.Black);
+            //BlendState blendState = new BlendState();
+            //blendState.ColorSourceBlend = Blend.DestinationColor;
+            //blendState.ColorDestinationBlend = Blend.SourceColor;
+            gm.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
+            foreach (BaseGameObject obj in a.objects)
+            {
+                if (obj.visible && obj is ILightable)
+                {
+                    ILightable o = obj as ILightable;
+                    gm.fxLighting.Parameters["lightColor"].SetValue(new float[] { 1, 0, 0 });
+                    gm.fxLighting.Parameters["lightRadius"].SetValue(o.lightRadius);
+                    gm.fxLighting.Parameters["lightStrength"].SetValue(o.lightStrength);
+                    gm.fxLighting.Parameters["lightCoords"].SetValue(obj.position + obj.origin);
+                    gm.fxLighting.Parameters["screenWidth"].SetValue(gm.settings.width);
+                    gm.fxLighting.Parameters["screenHeight"].SetValue(gm.settings.height);
+                    gm.fxLighting.CurrentTechnique.Passes[0].Apply();
+                }
+
+
+            }
+
+            gm.spriteBatch.Draw(back, new Vector2(0, 0), new Color(255, 255, 255, 255));
+            
+
             gm.spriteBatch.End();
             gm.GraphicsDevice.SetRenderTarget(null);
         }
@@ -66,19 +91,13 @@ namespace Snake2
             gm.GraphicsDevice.Clear(Color.Black);
 
             gm.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            gm.fxLighting.Parameters["lightMask"].SetValue(a.rtLight);
-            gm.fxLighting.CurrentTechnique.Passes[0].Apply();
-            gm.spriteBatch.Draw(a.rtMain, new Vector2(0, 0), Color.White);
+            gm.fxCombine.Parameters["lightTexture"].SetValue(a.rtLight);
+            gm.fxCombine.Parameters["mainTexture"].SetValue(a.rtMain);
+            gm.fxCombine.Parameters["ambientColor"].SetValue(new float[4] { 0, 0, 0, 0 });
+            gm.fxCombine.Parameters["ambient"].SetValue(1f);
+            gm.fxCombine.CurrentTechnique.Passes[0].Apply();
+            gm.spriteBatch.Draw(a.rtMain, new Vector2(0, 0), Color.Transparent);
             gm.spriteBatch.End();
-
-            //gm.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, gm.camera.transform);
-            //gm.spriteBatch.Draw(gm.pixel, a.snake.snakeHead, a.snake.headColor);
-            //foreach (Rectangle rect in a.snake.snakeBody)
-            //{
-            //    gm.spriteBatch.Draw(gm.pixel, rect, a.snake.headColor);
-            //    gm.spriteBatch.Draw(gm.pixel, new Rectangle(rect.X + a.snake.bodySize / 4, rect.Y + a.snake.bodySize / 4, a.snake.bodySize / 2, a.snake.bodySize / 2), a.snake.appleColor);
-            //}
-            //gm.spriteBatch.End();
 
             base.Draw(gameTime);            
         }

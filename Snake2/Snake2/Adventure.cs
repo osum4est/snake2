@@ -12,6 +12,8 @@ namespace Snake2
     {
         public RenderTarget2D rtMain;
         public RenderTarget2D rtLight;
+        public RenderTarget2D rtTemp;
+
 
         public static Adventure Current;
         public AdventureSnake snake;
@@ -56,6 +58,7 @@ namespace Snake2
             var pp = gm.GraphicsDevice.PresentationParameters;
             rtMain = new RenderTarget2D(gm.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
             rtLight = new RenderTarget2D(gm.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
+            rtTemp = new RenderTarget2D(gm.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
 
             base.Initialize();
         }

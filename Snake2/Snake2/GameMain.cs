@@ -63,6 +63,8 @@ namespace Snake2
         public Camera camera;
 
         public Effect fxLighting;
+        public Effect fxCombine;
+        public Effect fxCombineLights;
 
         public GameMain()
         {
@@ -95,6 +97,7 @@ namespace Snake2
             data = storageHandler.Load<DataLibrary>("Data.sav");
             fontMain = Content.Load<SpriteFont>("Font");
             fxLighting = Content.Load<Effect>("Effects/lighting");
+            fxCombine = Content.Load<Effect>("Effects/combine");
 
             Sprites.Load(this);
             

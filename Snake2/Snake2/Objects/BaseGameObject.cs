@@ -117,6 +117,9 @@ namespace Snake2
                 case ObjectChars.SLIME:
                     o = new EnemySlime();
                     break;
+                case ObjectChars.FIREFLY:
+                    o = new EntityFirefly();
+                    break;
                 default:
                     o = null;
                     break;

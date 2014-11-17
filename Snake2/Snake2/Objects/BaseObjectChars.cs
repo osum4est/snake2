@@ -15,5 +15,6 @@ namespace Snake2
         public const char COIN = 'C';
 
         public const char SLIME = 'S';
+        public const char FIREFLY = 'L';
     }
 }

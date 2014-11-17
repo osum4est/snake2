@@ -13,6 +13,7 @@ namespace Snake2
         public static Sprite coin;
         public static Sprite sword;
         public static Sprite[] rock;
+        public static Sprite firefly;
 
         public static Sprite slime;
         public static Sprite slimetrail;
@@ -33,9 +34,12 @@ namespace Snake2
                 new Sprite(c.Load<Texture2D>("Sprites/rock"), 0, 2),
                 new Sprite(c.Load<Texture2D>("Sprites/rock"), 1, 2)
             };
+            firefly = new Sprite(c.Load<Texture2D>("Sprites/firefly"));
+
 
             slime = new AnimatedSprite(c.Load<Texture2D>("Sprites/slime"), 1, 2, 150);
             slimetrail = new Sprite(c.Load<Texture2D>("Sprites/newslimetrail"));
+            
         }
 
         public static Sprite Pixel(int width, int height)
