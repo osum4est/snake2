@@ -7,8 +7,13 @@ using System.Text;
 
 namespace Snake2
 {
-    public class AdventureSnake : Snake
+    public class AdventureSnake : Snake, ILightable
     {
+        public Color lightColor { get; set; }
+        public float lightStrength { get; set; }
+        public float lightRadius { get; set; }
+
+
         // in levels
 
         Adventure adventure;
@@ -31,7 +36,10 @@ namespace Snake2
         public AdventureSnake(Game game, int p, Adventure adventure) : base(game, p)
         {
             this.adventure = adventure;
-            
+
+            lightColor = Color.Blue;
+            lightStrength = .6f;
+            lightRadius = 150;
 
             swords = 4;
             dummySwordTexture = Sprites.sword.texture;

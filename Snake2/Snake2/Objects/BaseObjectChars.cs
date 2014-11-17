@@ -9,6 +9,8 @@ namespace Snake2
 {
     public class ObjectChars
     {
+        public const char MOUSEFOLLOWER = 'M';
+
         public const char ROCK = 'R';
         public const char FALLINGROCK = 'F';
         public const char APPLE = '@';

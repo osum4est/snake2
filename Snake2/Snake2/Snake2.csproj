@@ -108,6 +108,7 @@
     <Compile Include="Objects\ObjectRock.cs" />
     <Compile Include="Objects\ObjectSlimeTrail.cs" />
     <Compile Include="Objects\ObjectSword.cs" />
+    <Compile Include="Objects\_MouseFollowerObject.cs" />
     <Compile Include="Other\Options.cs">
       <SubType>Form</SubType>
     </Compile>

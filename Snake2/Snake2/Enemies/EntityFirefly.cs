@@ -20,9 +20,9 @@ namespace Snake2
 
         public override void Initialize()
         {
-            lightColor = Color.Yellow;
-            lightStrength = 2f;
-            lightRadius = 250;
+            lightColor = new Color(255, 255, 0);
+            lightStrength = .6f;
+            lightRadius = 100;
 
             Sprite = Sprites.firefly;
             base.Initialize();

@@ -53,8 +53,7 @@ namespace Snake2
                 data[i] = Color.White;
             back.SetData<Color>(data);
 
-            gm.GraphicsDevice.SetRenderTarget(a.rtLight);
-            gm.GraphicsDevice.Clear(Color.Black);
+            
             BlendState blendState = new BlendState();
             blendState.ColorSourceBlend = Blend.SourceColor;
             blendState.ColorDestinationBlend = Blend.DestinationColor;
@@ -71,34 +70,35 @@ namespace Snake2
             }; 
 
 
-            gm.spriteBatch.Begin(SpriteSortMode.Immediate, blendState);
-
             
+
+            gm.GraphicsDevice.SetRenderTarget(a.rtLight);
+            gm.GraphicsDevice.Clear(Color.Black);
+            //gm.GraphicsDevice.SetRenderTarget(null);
 
             foreach (BaseGameObject obj in a.objects)
             {
                 if (obj.visible && obj is ILightable)
                 {
-                    Texture2D rtTemp = (Texture2D)a.rtLight;
+                    gm.GraphicsDevice.SetRenderTarget(a.rtLight);
+                    gm.spriteBatch.Begin(SpriteSortMode.Immediate, blendState);
                     ILightable o = obj as ILightable;
                     gm.fxLighting.CurrentTechnique = gm.fxLighting.Techniques["Technique1"];
-                    gm.fxLighting.Parameters["lightColor"].SetValue(new float[] { 1f, .5f, .5f});
+                    gm.fxLighting.Parameters["lightColor"].SetValue(new float[] { o.lightColor.R / 255f, o.lightColor.G / 255f, o.lightColor.B / 255f});
                     gm.fxLighting.Parameters["lightRadius"].SetValue(o.lightRadius);
                     gm.fxLighting.Parameters["lightStrength"].SetValue(o.lightStrength);
                     gm.fxLighting.Parameters["lightCoords"].SetValue(obj.position + obj.origin);
                     gm.fxLighting.Parameters["screenWidth"].SetValue(gm.settings.width);
                     gm.fxLighting.Parameters["screenHeight"].SetValue(gm.settings.height);
-                    //gm.fxLighting.Parameters["lightTexture"].SetValue(rtTemp);
                     gm.fxLighting.CurrentTechnique.Passes[0].Apply();
+                    gm.spriteBatch.Draw(back, new Vector2(0, 0), new Color(255, 255, 255, 0));
+                    gm.spriteBatch.End();
                 }
 
 
             }
 
-            gm.spriteBatch.Draw(back, new Vector2(0, 0), new Color(255, 255, 255, 0));
             
-
-            gm.spriteBatch.End();
             gm.GraphicsDevice.SetRenderTarget(null);
         }
 
@@ -118,10 +118,10 @@ namespace Snake2
             gm.fxCombine.CurrentTechnique = gm.fxCombine.Techniques["Technique1"];
             gm.fxCombine.Parameters["lightTexture"].SetValue(a.rtLight);
             gm.fxCombine.Parameters["mainTexture"].SetValue(a.rtMain);
-            gm.fxCombine.Parameters["ambientColor"].SetValue(new float[4] { 0f, 0, 0f, .98f });
+            gm.fxCombine.Parameters["ambientColor"].SetValue(new float[4] { .5f, 0, 0f, .99f });
             gm.fxCombine.Parameters["ambient"].SetValue(1f);
             gm.fxCombine.CurrentTechnique.Passes[0].Apply();
-            gm.spriteBatch.Draw(a.rtMain, new Vector2(0, 0), Color.White);
+            gm.spriteBatch.Draw(a.rtMain, new Vector2(a.currentLevel.X * gm.settings.width, a.currentLevel.Y * gm.settings.height), Color.White);
             gm.spriteBatch.End();
 
             base.Draw(gameTime);            

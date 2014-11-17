@@ -120,6 +120,9 @@ namespace Snake2
                 case ObjectChars.FIREFLY:
                     o = new EntityFirefly();
                     break;
+                case ObjectChars.MOUSEFOLLOWER:
+                    o = new _MouseFollowerObject();
+                    break;
                 default:
                     o = null;
                     break;

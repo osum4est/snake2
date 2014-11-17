@@ -10,7 +10,10 @@ namespace Snake2
     {
         Color lightColor { get; set; }
         float lightRadius { get; set; }
+
+        /// <summary>
+        /// .5 for best light affects!
+        /// </summary>
         float lightStrength { get; set; }
     }
-
 }

@@ -36,11 +36,7 @@ float4 PixelShaderFunction(PixelShaderInput input) : COLOR0
 		float coneAttenuation = saturate(1.0f - length(lightCoords - pixelPosition) / lightRadius) * lightStrength;
 
 	float4 light = float4(lightColor.r, lightColor.g, lightColor.b, coneAttenuation);
-
-		//if (coneAttenuation == 0)
-			//return ;
-		//else
-			return light;
+	return light;
 }
 
 technique Technique1
