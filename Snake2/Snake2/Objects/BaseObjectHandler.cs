@@ -88,7 +88,7 @@ namespace Snake2
                     gm.fxLighting.Parameters["lightCoords"].SetValue(obj.position + obj.origin);
                     gm.fxLighting.Parameters["screenWidth"].SetValue(gm.settings.width);
                     gm.fxLighting.Parameters["screenHeight"].SetValue(gm.settings.height);
-                    gm.fxLighting.Parameters["lightTexture"].SetValue(rtTemp);
+                    //gm.fxLighting.Parameters["lightTexture"].SetValue(rtTemp);
                     gm.fxLighting.CurrentTechnique.Passes[0].Apply();
                 }
 
