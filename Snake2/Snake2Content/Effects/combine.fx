@@ -32,48 +32,9 @@ float4 PixelShaderFunction(PixelShaderInput input) : COLOR0
 	float4 mainColor = tex2D(mainSampler, texCoord);
 	float4 lightColor = tex2D(lightSampler, texCoord);
 
-	//lightColor.rgb = clamp(lightColor.rgb / lightColor.a, 0, 1);
-
-	/*lightColor.a = clamp(lightColor.a - 0.05, 0, 1);
-	lightColor.r = lightColor.r * lightColor.a;
-	lightColor.g = lightColor.g * lightColor.a;
-	lightColor.b = lightColor.b * lightColor.a;*/
-
-	/*float4 finalColor = mainColor + mainColor.a * lightColor;
-	finalColor = finalColor + finalColor.a * ambientColor;*/
-
-	//lightColor.a = clamp(lightColor.a * ambientColor.a, 0, 1);
-
-	float ambientAmount;
-
-	//if (lightColor.a != 0)
-	{
-		//ambientAmount = lightColor.a;
-	}
-	//else
-	{
-		ambientAmount = ambientColor.a;
-	}
-
 	float4  finalColor = mainColor * (1 - ambientColor.a) + ambientColor * mainColor;
-	finalColor = finalColor * (1 - lightColor.a) + lightColor * mainColor;
-		//finalColor += ambientColor * mainColor;
-
-		//if (lightColor.a == 0)
-			
-		//else
-			//finalColor.rgb = lightColor.rgb + ambientColor.rgb;
-
-	//float4 finalColor;
-	/*finalColor.r += ambientColor.r;
-	finalColor.g += ambientColor.g;
-	finalColor.b += ambientColor.b;*/
-
-	//if (finalColor.a == 0)
-	//{
-	//	finalColor = mainColor * ambientColor;
-	//}
-	//finalColor += mainColor * lightColor * ambientColor;
+		finalColor = finalColor * (1 - lightColor.a) + lightColor * mainColor;
+		
 
 	return finalColor;
 }

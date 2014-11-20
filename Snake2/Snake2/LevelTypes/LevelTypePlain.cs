@@ -11,7 +11,7 @@ namespace Snake2
     {
         public LevelTypePlain()
         {
-            ambientLight = new Color(50, 0, 0, 25);
+            ambientLight = new Color(0, 0, 0, 0);
         }
 
         public override void Draw(GameTime gameTime)

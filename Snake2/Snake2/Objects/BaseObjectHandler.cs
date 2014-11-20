@@ -61,20 +61,16 @@ namespace Snake2
 
             BlendState Multiply = new BlendState()
             {
-                AlphaSourceBlend = Blend.DestinationAlpha,
-                AlphaDestinationBlend = Blend.Zero,
+                AlphaSourceBlend = Blend.DestinationColor,
+                AlphaDestinationBlend = Blend.SourceColor,
                 AlphaBlendFunction = BlendFunction.Add,
-                ColorSourceBlend = Blend.DestinationColor,
-                ColorDestinationBlend = Blend.Zero,
+                ColorSourceBlend = Blend.SourceColor,
+                ColorDestinationBlend = Blend.DestinationColor,
                 ColorBlendFunction = BlendFunction.Add
             }; 
 
-
-            
-
             gm.GraphicsDevice.SetRenderTarget(a.rtLight);
-            gm.GraphicsDevice.Clear(Color.Black);
-            //gm.GraphicsDevice.SetRenderTarget(null);
+            gm.GraphicsDevice.Clear(Color.Transparent);
 
             foreach (BaseGameObject obj in a.objects)
             {
@@ -87,7 +83,7 @@ namespace Snake2
                     gm.fxLighting.Parameters["lightColor"].SetValue(new float[] { o.lightColor.R / 255f, o.lightColor.G / 255f, o.lightColor.B / 255f});
                     gm.fxLighting.Parameters["lightRadius"].SetValue(o.lightRadius);
                     gm.fxLighting.Parameters["lightStrength"].SetValue(o.lightStrength);
-                    gm.fxLighting.Parameters["lightCoords"].SetValue(obj.position + obj.origin);
+                    gm.fxLighting.Parameters["lightCoords"].SetValue((obj.position + obj.origin) - new Vector2(gm.settings.width, gm.settings.height) * a.currentLevel);
                     gm.fxLighting.Parameters["screenWidth"].SetValue(gm.settings.width);
                     gm.fxLighting.Parameters["screenHeight"].SetValue(gm.settings.height);
                     gm.fxLighting.CurrentTechnique.Passes[0].Apply();
@@ -97,7 +93,6 @@ namespace Snake2
 
 
             }
-
             
             gm.GraphicsDevice.SetRenderTarget(null);
         }
@@ -110,18 +105,28 @@ namespace Snake2
 
 
             BlendState blendState = new BlendState();
-            blendState.ColorSourceBlend = Blend.One;
-            blendState.ColorDestinationBlend = Blend.InverseSourceAlpha;
+            blendState.ColorSourceBlend = Blend.SourceColor;
+            blendState.ColorDestinationBlend = Blend.DestinationColor;
 
+
+            BlendState Multiply = new BlendState()
+            {
+                AlphaSourceBlend = Blend.DestinationColor,
+                AlphaDestinationBlend = Blend.SourceColor,
+                AlphaBlendFunction = BlendFunction.Add,
+                ColorSourceBlend = Blend.SourceColor,
+                ColorDestinationBlend = Blend.DestinationColor,
+                ColorBlendFunction = BlendFunction.Add
+            };
 
             gm.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             gm.fxCombine.CurrentTechnique = gm.fxCombine.Techniques["Technique1"];
             gm.fxCombine.Parameters["lightTexture"].SetValue(a.rtLight);
             gm.fxCombine.Parameters["mainTexture"].SetValue(a.rtMain);
-            gm.fxCombine.Parameters["ambientColor"].SetValue(new float[4] { .5f, 0, 0f, .99f });
+            gm.fxCombine.Parameters["ambientColor"].SetValue(new float[4] { a.levelType.ambientLight.R / 255f, a.levelType.ambientLight.G / 255f, a.levelType.ambientLight.B / 255f, a.levelType.ambientLight.A / 255f });
             gm.fxCombine.Parameters["ambient"].SetValue(1f);
             gm.fxCombine.CurrentTechnique.Passes[0].Apply();
-            gm.spriteBatch.Draw(a.rtMain, new Vector2(a.currentLevel.X * gm.settings.width, a.currentLevel.Y * gm.settings.height), Color.White);
+            gm.spriteBatch.Draw(a.rtMain, new Vector2(0, 0), Color.White);
             gm.spriteBatch.End();
 
             base.Draw(gameTime);            
